@@ -51,7 +51,7 @@ def parse_args(parser):
     parser.add_argument('--tacotron2', type=str, default="/mnt/data/pretrained/tacotron2/tacotron2_1032590_6000_amp", help='full path to the Tacotron2 model checkpoint file')
     parser.add_argument('--waveglow', type=str, default="/mnt/data/pretrained/tacotron2/waveglow_1076430_14000_amp",
                         help='full path to the WaveGlow model checkpoint file')
-    parser.add_argument('-s', '--sigma-infer', default=0.9, type=float)
+    parser.add_argument('-s', '--sigma-infer', default=0.666, type=float)
     parser.add_argument('-d', '--denoising-strength', default=0.01, type=float)
     parser.add_argument('-sr', '--sampling-rate', default=22050, type=int,
                         help='Sampling rate')
@@ -242,6 +242,7 @@ class TTS:
 
     self.log("texts=", texts)
     sequences_padded, input_lengths = prepare_input_sequence(texts, args.cpu_run)
+    self.log(sequences_padded)
 
     with torch.no_grad(), MeasureTime(measurements, "tacotron2_time", args.cpu_run):
       mel, mel_lengths, alignments = jitted_tacotron2(sequences_padded, input_lengths)
