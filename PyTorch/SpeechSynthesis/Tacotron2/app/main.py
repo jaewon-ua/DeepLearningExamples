@@ -57,7 +57,7 @@ async def voice(txt: str):
     # Build the voice request, select the language code ("en-US") and the ssml
     # voice gender ("neutral")
     voice = texttospeech.VoiceSelectionParams(
-        language_code="en-US", 
+        language_code="en-US",
         name="en-US-Wavenet-F",
         ssml_gender=texttospeech.SsmlVoiceGender.FEMALE
     )
